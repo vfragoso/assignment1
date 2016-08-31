@@ -63,7 +63,7 @@ namespace wvu {
 // The function should return 0 when the array is empty.
 // The function should return 0 when invalid pointers are passed; invalid
 // pointers means that the address of start is greater than end.
-int SumArray(const int* start, const int* end);
+int SumArray(int* start, int* end);
 
 // Sums all the elements in the vector. For example:
 // Sum(vector={1, 2 ,3, 4}) -> 10.

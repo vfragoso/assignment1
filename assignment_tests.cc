@@ -40,13 +40,13 @@
 namespace wvu {
 // Tests if the SumArray function was correctly implemented.
 TEST(Assignment, SumArray) {
-  const int my_array[] = {1, 2, 3, 4};
+  int my_array[] = {1, 2, 3, 4};
   const int sum = SumArray(my_array, my_array + 4);
   EXPECT_EQ(10, sum);
 }
 
 TEST(Assignment, SumArrayWithInvalidPointers) {
-  const int my_array[] = {1, 2, 3, 4};
+  int my_array[] = {1, 2, 3, 4};
   const int sum = SumArray(my_array + 4, my_array);
   EXPECT_EQ(0, sum);
 }
