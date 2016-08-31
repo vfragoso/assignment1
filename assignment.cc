@@ -34,9 +34,13 @@
 #include "assignment.h"
 
 namespace wvu {
-int SumArray(const int* start, const int* end) {
-  // Implement this function according to the instructions in assignment.h.
-  return -10000;
+int SumArray(int* start, int* end) {
+  if (start > end) return 0;
+  int sum = 0;
+  for (int* ptr = start; ptr != end; ++ptr) {
+    sum += *ptr;
+  }
+  return sum;
 }
 
 int Sum(const std::vector<int>& vector) {
