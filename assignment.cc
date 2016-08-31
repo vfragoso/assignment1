@@ -29,6 +29,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+#include <unordered_map>
 #include <vector>
 #include <iostream>
 #include "assignment.h"
@@ -84,7 +85,16 @@ void Exchange(const int array_size,
 }
 
 void IdentifyUniqueElements(std::vector<int>* vector) {
-  // Implement this function according to the instructions in assignment.h.
+  if (!vector) return;
+  std::unordered_map<int, int> my_map;
+  for (int i = 0; i < vector->size(); ++i) {
+    my_map[vector->at(i)] = 0;
+  }
+  vector->resize(my_map.size());
+  int i = 0;
+  for (const std::pair<int, int>& entry : my_map) {
+    vector->at(i++) = entry.first;
+  }
 }
 
 }  // namespace wvu

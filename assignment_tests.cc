@@ -85,16 +85,16 @@ TEST(Assignment, ReverseInPlace) {
 
 // Tests if the Exchange function was correctly implemented.
 TEST(Assignment, Exchange) {
-  std::vector<int> my_vector = {1, 2, 3, 4};
-  int my_array[] = {5, 6, 7, 8, 9};
+  std::vector<int> my_vector = {0, 1, 2, 3};
+  int my_array[] = {4, 5, 6, 7, 8};
   const int size_of_array = sizeof(my_array) / sizeof(my_array[0]);
   int* my_array_ptr = my_array;
   Exchange(size_of_array, &my_array_ptr, &my_vector);
-  for (int i = 1; i <= 4; ++i) {
+  for (int i = 0; i < 4; ++i) {
     EXPECT_EQ(i, my_array_ptr[i]);
   }
-  for (int i = 5; i <= 9; ++i) {
-    EXPECT_EQ(i, my_vector[i]);
+  for (int i = 0; i < 5; ++i) {
+    EXPECT_EQ(i + 4, my_vector[i]);
   }
 }
 
