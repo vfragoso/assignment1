@@ -32,7 +32,6 @@
 #include <vector>
 #include <iostream>
 #include "assignment.h"
-#include "glog/logging.h"
 
 namespace wvu {
 int SumArray(int* start, int* end) {
@@ -73,7 +72,15 @@ void ReverseInPlace(std::vector<int>* vector) {
 void Exchange(const int array_size,
               int** array,
               std::vector<int>* vector) {
-  // Implement this function according to the instructions in assignment.h.
+  int* new_array = new int[vector->size()];
+  for (int i = 0; i < vector->size(); ++i) {
+    new_array[i] = vector->at(i);
+  }
+  vector->resize(array_size);
+  for (int i = 0; i < array_size; ++i) {
+    vector->at(i) = (*array)[i];
+  }
+  *array = new_array;
 }
 
 void IdentifyUniqueElements(std::vector<int>* vector) {

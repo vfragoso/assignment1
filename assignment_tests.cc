@@ -76,9 +76,9 @@ TEST(Assignment, Swap) {
 
 // Tests if the reverse vector was correctly implemented.
 TEST(Assignment, ReverseInPlace) {
-  std::vector<int> my_vector = {1, 2, 3, 4};
+  std::vector<int> my_vector = {3, 2, 1, 0};
   ReverseInPlace(&my_vector);
-  for (int i = 4; i > 0; --i) {
+  for (int i = 0; i < my_vector.size(); ++i) {
     EXPECT_EQ(i, my_vector[i]);
   }
 }
