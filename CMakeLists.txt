@@ -86,7 +86,7 @@ TARGET_LINK_LIBRARIES(test_main gtest
   ${SUITESPARSE_LIBRARIES})
 
 MACRO (GTEST NAME)
-  ADD_EXECUTABLE(${NAME} ${NAME}_tests.cc)
+  ADD_EXECUTABLE(${NAME} ${NAME}_tests.cc assignment.cc)
   TARGET_LINK_LIBRARIES(${NAME} test_main gtest ${ARGN}
     ${GFLAGS_LIBRARIES}
     ${GLOG_LIBRARIES})

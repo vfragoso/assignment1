@@ -40,6 +40,9 @@
 #define CS470_GFLAGS_NAMESPACE gflags
 #endif
 
+// Logging output to stdout.
+#define GLOG_logtostderr
+
 int main(int argc, char *argv[]) {
   CS470_GFLAGS_NAMESPACE::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
