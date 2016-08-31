@@ -32,6 +32,7 @@
 #include <vector>
 #include <iostream>
 #include "assignment.h"
+#include "glog/logging.h"
 
 namespace wvu {
 int SumArray(int* start, int* end) {
@@ -44,16 +45,29 @@ int SumArray(int* start, int* end) {
 }
 
 int Sum(const std::vector<int>& vector) {
-  // Implement this function according to the instructions in assignment.h.
-  return -10000;
+  int sum = 0;
+  for (int i = 0; i < vector.size(); ++i) {
+    sum += vector[i];
+  }
+  return sum;
 }
 
 void Swap(int* number_1, int* number_2) {
-  // Implement this function according to the instructions in assignment.h.
+  if (number_1 && number_2) {
+    int temp = *number_1;
+    *number_1 = *number_2;
+    *number_2 = temp;
+  }
 }
 
 void ReverseInPlace(std::vector<int>* vector) {
-  // Implement this function according to the instructions in assignment.h.
+  int start = 0;
+  int end = vector->size() - 1;
+  while (start < end) {
+    Swap(&vector->at(start), &vector->at(end));
+    ++start;
+    --end;
+  }
 }
 
 void Exchange(const int array_size,
