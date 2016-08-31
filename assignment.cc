@@ -30,18 +30,36 @@
 //
 
 #include <vector>
+#include <iostream>
+#include "assignment.h"
 
 namespace wvu {
-// Annonymous namespace.
-namespace {
-void Swap(int* number_1, int* number_2) {
-  // NOTE: Implement this function.
+int SumArray(const int* start, const int* end) {
+  // Implement this function according to the instructions in assignment.h.
+  return -10000;
 }
 
-}  // namespace
+int Sum(const std::vector<int>& vector) {
+  // Implement this function according to the instructions in assignment.h.
+  return -10000;
+}
+
+void Swap(int* number_1, int* number_2) {
+  // Implement this function according to the instructions in assignment.h.
+}
 
 void ReverseInPlace(std::vector<int>* vector) {
-  // NOTE: Implement this function.
+  // Implement this function according to the instructions in assignment.h.
+}
+
+void Exchange(const int array_size,
+              int** array,
+              std::vector<int>* vector) {
+  // Implement this function according to the instructions in assignment.h.
+}
+
+void IdentifyUniqueElements(std::vector<int>* vector) {
+  // Implement this function according to the instructions in assignment.h.
 }
 
 }  // namespace wvu

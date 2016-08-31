@@ -32,11 +32,71 @@
 #ifndef ASSIGNMENT_1_H_
 #define ASSIGNMENT_1_H_
 
+#include <vector>
+
+// Assignment 1. Implement the functions declared below in assignment.cc. The
+// goal of the assignment is to test the topics we covered as part of the
+// C++ crash course.
+//
+// Send your solution as a single file and with the following format:
+//
+// assignment1_<firstname>_<lastname>.zip,
+//
+// where <first> is replaced with your firstname and <lastname> with your
+// lastname. For example, in my case it would be:
+//
+// assignment1_victor_fragoso.zip.
+//
+// The zip file should include *only* source code of the project, don't include
+// any binaries.
+//
+// Compilation. Use the instructions we saw in class to compile this project.
+//
+// Verification of solution. To verify your implementations, the project
+// generates a binary called assignment under the created bin directory. When
+// the implementations are correct all the tests run by the binary will be
+// marked as OK.
 namespace wvu {
+// Sums all the elements in the array. For example:
+// SumArray(array={1, 2 ,3, 4}) -> 10.
+// Your job is to implement this function in assignment.cc
+// The function should return 0 when the array is empty.
+// The function should return 0 when invalid pointers are passed; invalid
+// pointers means that the address of start is greater than end.
+int SumArray(const int* start, const int* end);
+
+// Sums all the elements in the vector. For example:
+// Sum(vector={1, 2 ,3, 4}) -> 10.
+// Your job is to implement this function in assignment.cc
+// The function should return 0 when the vector is empty.
+int Sum(const std::vector<int>& vector);
+
+// Swaps the values of two integers.
+// Your job is to implement this function in assignment.cc.
+void Swap(int* number_1, int* number_2);
+
 // Reverses the elements in the vector. For instance, assume the vector has
 // v = {1, 2, 3, 4, 5}. After reversal, the vector should look like
 // v = {5, 4, 3, 2, 1}.
+// Your job is to implement this function in assignment.cc uisng the Swap
+// function only.
 void ReverseInPlace(std::vector<int>* vector);
+
+// Exchanges information from vector to an array. For example:
+// vector = {1, 2, 3, 4, 5}
+// array = {6, 7, 8, 9, 0}
+// Exchange(vector, array) vector -> {6, 7, 8, 9, 0}, array - {1, 2, 3, 4, 5}.
+// Hint: For vector you can use a method called resize().
+// See link: http://en.cppreference.com/w/cpp/container/vector/resize
+// Your job is to implement this function in assignment.cc.
+void Exchange(const int array_size,
+              int** array,
+              std::vector<int>* vector);
+
+// Identify unique elements in a vector using map, and return the unique
+// elements in the same vector. For example: vector = {1, 1, 1, 1, 2}
+// vector = {1, 2} <- IdentifyUniqueElements(vector).
+void IdentifyUniqueElements(std::vector<int>* vector);
 
 }  // namespace
 
