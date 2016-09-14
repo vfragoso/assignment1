@@ -33,7 +33,8 @@
 #include <stdlib.h>  // For random.
 
 // C++ headers.
-#include <algorithm>  // For std::accumulate.
+#include <algorithm>  // For std::reverse.
+#include <numeric>  // For std::accumulate.
 #include <unordered_set>
 #include <vector>
 
