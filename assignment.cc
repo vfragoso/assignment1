@@ -29,37 +29,77 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+#include <unordered_map>
 #include <vector>
 #include <iostream>
 #include "assignment.h"
 
 namespace wvu {
 int SumArray(int* start, int* end) {
-  // Implement this function according to the instructions in assignment.h.
-  return -10000;
+  if (start == nullptr || end == nullptr) return 0;
+  if (start > end) return 0;
+  if (start == end) return *start;
+  int sum = 0;
+  for (int* ptr = start; ptr != end; ++ptr) {
+    sum += *ptr;
+  }
+  return sum;
 }
 
 int Sum(const std::vector<int>& vector) {
-  // Implement this function according to the instructions in assignment.h.
-  return -10000;
+  int sum = 0;
+  for (int i = 0; i < vector.size(); ++i) {
+    sum += vector[i];
+  }
+  return sum;
 }
 
 void Swap(int* number_1, int* number_2) {
-  // Implement this function according to the instructions in assignment.h.
+  if (number_1 == number_2) return;
+  if (number_1 && number_2) {
+    int temp = *number_1;
+    *number_1 = *number_2;
+    *number_2 = temp;
+  }
 }
 
 void ReverseInPlace(std::vector<int>* vector) {
-  // Implement this function according to the instructions in assignment.h.
+  if (!vector) return;
+  int start = 0;
+  int end = vector->size() - 1;
+  while (start < end) {
+    Swap(&vector->at(start), &vector->at(end));
+    ++start;
+    --end;
+  }
 }
 
 void Exchange(const int array_size,
               int** array,
               std::vector<int>* vector) {
-  // Implement this function according to the instructions in assignment.h.
+  if (vector == nullptr || array == nullptr) return;
+  int* new_array = new int[vector->size()];
+  for (int i = 0; i < vector->size(); ++i) {
+    new_array[i] = vector->at(i);
+  }
+  vector->resize(array_size);
+  for (int i = 0; i < array_size; ++i) {
+    vector->at(i) = (*array)[i];
+  }
+  *array = new_array;
 }
 
 void IdentifyUniqueElements(std::vector<int>* vector) {
-  // Implement this function according to the instructions in assignment.h.
+  if (!vector) return;
+  std::unordered_map<int, int> my_map;
+  for (int i = 0; i < vector->size(); ++i) {
+    my_map[vector->at(i)] = 0;
+  }
+  vector->resize(my_map.size());
+  int i = 0;
+  for (const std::pair<int, int>& entry : my_map) {
+    vector->at(i++) = entry.first;
+  }
 }
 
 }  // namespace wvu
