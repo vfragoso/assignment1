@@ -36,7 +36,9 @@
 
 namespace wvu {
 int SumArray(int* start, int* end) {
+  if (start == nullptr || end == nullptr) return 0;
   if (start > end) return 0;
+  if (start == end) return *start;
   int sum = 0;
   for (int* ptr = start; ptr != end; ++ptr) {
     sum += *ptr;
@@ -53,6 +55,7 @@ int Sum(const std::vector<int>& vector) {
 }
 
 void Swap(int* number_1, int* number_2) {
+  if (number_1 == number_2) return;
   if (number_1 && number_2) {
     int temp = *number_1;
     *number_1 = *number_2;
@@ -61,6 +64,7 @@ void Swap(int* number_1, int* number_2) {
 }
 
 void ReverseInPlace(std::vector<int>* vector) {
+  if (!vector) return;
   int start = 0;
   int end = vector->size() - 1;
   while (start < end) {
@@ -73,6 +77,7 @@ void ReverseInPlace(std::vector<int>* vector) {
 void Exchange(const int array_size,
               int** array,
               std::vector<int>* vector) {
+  if (vector == nullptr || array == nullptr) return;
   int* new_array = new int[vector->size()];
   for (int i = 0; i < vector->size(); ++i) {
     new_array[i] = vector->at(i);

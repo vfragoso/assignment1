@@ -29,8 +29,15 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+// C headers.
+#include <stdlib.h>  // For random.
+
+// C++ headers.
+#include <algorithm>  // For std::accumulate.
 #include <unordered_set>
 #include <vector>
+
+// System specific headers.
 #include "assignment.h"
 #include "glog/logging.h"
 #include "gtest/gtest.h"
@@ -40,11 +47,29 @@
 namespace wvu {
 // Tests if the SumArray function was correctly implemented.
 TEST(Assignment, SumArray) {
-  int my_array[] = {1, 2, 3, 4};
-  const int sum = SumArray(my_array, my_array + 4);
-  EXPECT_EQ(10, sum);
+  const int kNumPoints = 50;
+  std::vector<int> my_vector(kNumPoints);
+  for (int i = 0; i < kNumPoints; ++i) {
+    my_vector[i] = rand();
+  }
+  const int sum = SumArray(my_vector.data(), my_vector.data() + kNumPoints);
+  EXPECT_EQ(std::accumulate(my_vector.begin(), my_vector.end(), 0), sum);
 }
 
+// Tests for the sum of an array with a single element.
+TEST(Assignment, SumArraySingleElement) {
+  int my_array[] = {1};
+  const int sum = SumArray(my_array, my_array);
+  EXPECT_EQ(my_array[0], sum);
+}
+
+// Tests for the sum of an array with null pointers.
+TEST(Assignment, SumArrayWithNullPointers) {
+  const int sum = SumArray(nullptr, nullptr);
+  EXPECT_EQ(0, sum);
+}
+
+// Tests for the sum of an array with wrong order of the pointers.
 TEST(Assignment, SumArrayWithInvalidPointers) {
   int my_array[] = {1, 2, 3, 4};
   const int sum = SumArray(my_array + 4, my_array);
@@ -53,9 +78,10 @@ TEST(Assignment, SumArrayWithInvalidPointers) {
 
 // Tests if the Sum function was correctly implemented.
 TEST(Assignment, Sum) {
-  const std::vector<int> my_vector = {1, 2, 3, 4};
+  const int kNumPoints = 50;
+  std::vector<int> my_vector(kNumPoints);
   const int sum = Sum(my_vector);
-  EXPECT_EQ(10, sum);
+  EXPECT_EQ(std::accumulate(my_vector.begin(), my_vector.end(), 0), sum);
 }
 
 // Tests if the Sum function was correctly implemented.
@@ -67,46 +93,139 @@ TEST(Assignment, SumOfEmptyVector) {
 
 // Tests if the Swap function was correctly implemented.
 TEST(Assignment, Swap) {
-  int variable_1 = 50;
-  int variable_2 = 100;
+  int variable_1 = rand();
+  int variable_2 = variable_1 + rand();
+  const int variable_1_output = variable_2;
+  const int variable_2_output = variable_1;
   Swap(&variable_1, &variable_2);
-  EXPECT_EQ(50, variable_2);
-  EXPECT_EQ(100, variable_1);
+  EXPECT_EQ(variable_2_output, variable_2);
+  EXPECT_EQ(variable_1_output, variable_1);
+}
+
+// Tests if the Swap function was correctly implemented.
+TEST(Assignment, SwapWithNullPointers) {
+  Swap(nullptr, nullptr);
 }
 
 // Tests if the reverse vector was correctly implemented.
 TEST(Assignment, ReverseInPlace) {
-  std::vector<int> my_vector = {3, 2, 1, 0};
-  ReverseInPlace(&my_vector);
-  for (int i = 0; i < my_vector.size(); ++i) {
-    EXPECT_EQ(i, my_vector[i]);
+  const int kNumPoints = 50;
+  std::vector<int> my_vector(kNumPoints);
+  for (int i = 0; i < kNumPoints; ++i) {
+    my_vector[i] = rand();
   }
+  std::vector<int> reversed_vector = my_vector;
+  ReverseInPlace(&my_vector);
+  std::reverse(reversed_vector.begin(), reversed_vector.end());
+  for (int i = 0; i < my_vector.size(); ++i) {
+    EXPECT_EQ(reversed_vector[i], my_vector[i]);
+  }
+}
+
+// Test if the reverse vector was correctly implemented with a single element.
+TEST(Assignment, ReverseInPlaceWithSingleElement) {
+  const int kNumPoints = 1;
+  std::vector<int> my_vector(kNumPoints);
+  for (int i = 0; i < kNumPoints; ++i) {
+    my_vector[i] = rand();
+  }
+  std::vector<int> reversed_vector = my_vector;
+  ReverseInPlace(&my_vector);
+  std::reverse(reversed_vector.begin(), reversed_vector.end());
+  for (int i = 0; i < my_vector.size(); ++i) {
+    EXPECT_EQ(reversed_vector[i], my_vector[i]);
+  }
+}
+
+// Test if the reverse vector was correctly implemented with a null pointer.
+TEST(Assignment, ReverseInPlaceWithNullPointer) {
+  ReverseInPlace(nullptr);
 }
 
 // Tests if the Exchange function was correctly implemented.
 TEST(Assignment, Exchange) {
-  std::vector<int> my_vector = {0, 1, 2, 3};
-  int my_array[] = {4, 5, 6, 7, 8};
+  constexpr int kNumPointsVector = 50;
+  constexpr int kNumPointsArray = 25;
+  std::vector<int> my_vector(kNumPointsVector);
+  int my_array[kNumPointsArray];
+
+  // Initialize vector and array.
+  for (int i = 0; i < my_vector.size(); ++i) {
+    my_vector[i] = rand();
+  }
+  for (int i = 0; i < kNumPointsArray; ++i) {
+    my_array[i] = rand();
+  }
+  // Create the correct answer using vectors.
+  const std::vector<int> my_array_output = my_vector;
+  const std::vector<int> my_vector_output(my_array, my_array + kNumPointsArray);
+
   const int size_of_array = sizeof(my_array) / sizeof(my_array[0]);
   int* my_array_ptr = my_array;
   Exchange(size_of_array, &my_array_ptr, &my_vector);
-  for (int i = 0; i < 4; ++i) {
-    EXPECT_EQ(i, my_array_ptr[i]);
+  for (int i = 0; i < my_array_output.size(); ++i) {
+    EXPECT_EQ(my_array_output[i], my_array_ptr[i]);
   }
-  for (int i = 0; i < 5; ++i) {
-    EXPECT_EQ(i + 4, my_vector[i]);
+  for (int i = 0; i < my_vector_output.size(); ++i) {
+    EXPECT_EQ(my_vector_output[i], my_vector[i]);
+  }
+}
+
+// Tests if the Exchange function was correctly implemented.
+TEST(Assignment, ExchangeWithNullPointers) {
+  Exchange(0, nullptr, nullptr);
+}
+
+// Tests if the Exchange function was correctly implemented.
+TEST(Assignment, ExchangeWithEmptyArray) {
+  constexpr int kNumPointsVector = 50;
+  constexpr int kNumPointsArray = 0;
+  std::vector<int> my_vector(kNumPointsVector);
+  int my_array[kNumPointsArray];
+
+  // Initialize vector and array.
+  for (int i = 0; i < my_vector.size(); ++i) {
+    my_vector[i] = rand();
+  }
+  for (int i = 0; i < kNumPointsArray; ++i) {
+    my_array[i] = rand();
+  }
+  // Create the correct answer using vectors.
+  const std::vector<int> my_array_output = my_vector;
+  const std::vector<int> my_vector_output(my_array, my_array + kNumPointsArray);
+
+  const int size_of_array = sizeof(my_array) / sizeof(my_array[0]);
+  int* my_array_ptr = my_array;
+  Exchange(size_of_array, &my_array_ptr, &my_vector);
+  for (int i = 0; i < my_array_output.size(); ++i) {
+    EXPECT_EQ(my_array_output[i], my_array_ptr[i]);
+  }
+  for (int i = 0; i < my_vector_output.size(); ++i) {
+    EXPECT_EQ(my_vector_output[i], my_vector[i]);
   }
 }
 
 // Tests if the IdentifyUniqueElements function was correctly implemented.
 TEST(Assignment, IdentifyUniqueElements) {
-  std::vector<int> my_vector = {1, 1, 1, 2, 3, 4, 4, 5, 5};
+  constexpr int kNumPointsVector = 50;
+  std::vector<int> my_vector(kNumPointsVector);
+  // Initialize vector and array.
+  // The % is the modulo/remainder operator.
+  for (int i = 0; i < my_vector.size(); ++i) {
+    my_vector[i] = rand() % 10;
+  }
+  // Unordered set or set
   std::unordered_set<int> unique_elements(my_vector.begin(), my_vector.end());
   IdentifyUniqueElements(&my_vector);
   EXPECT_EQ(unique_elements.size(), my_vector.size());
   for (int i = 0; i < my_vector.size(); ++i) {
     EXPECT_TRUE(unique_elements.find(my_vector[i]) != unique_elements.end());
   }
+}
+
+// Tests if the IdentifyUniqueElements function was correctly implemented.
+TEST(Assignment, IdentifyUniqueElementsWithNullPointer) {
+  IdentifyUniqueElements(nullptr);
 }
 
 }  // namespace
